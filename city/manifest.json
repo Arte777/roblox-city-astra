@@ -1,27 +1,103 @@
 {
   "$schema": "https://raw.githubusercontent.com/Arte777/roblox-city-astra/main/city/schema.json",
   "project": "Astra City Island",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "grid": {
-    "islandSize": [640, 28, 640],
-    "blockSize": [180, 180],
-    "roadWidth": 24,
-    "sidewalkWidth": 8,
-    "roadsX": [-100, 100],
-    "roadsZ": [-100, 100],
+    "islandSize": [
+      2400,
+      42,
+      2400
+    ],
+    "blockSize": [
+      720,
+      720
+    ],
+    "roadWidth": 44,
+    "sidewalkWidth": 10,
+    "roadsX": [
+      -400,
+      400
+    ],
+    "roadsZ": [
+      -400,
+      400
+    ],
     "groundHeight": 0,
-    "oceanHeight": -34.5
+    "oceanHeight": -35
   },
   "zones": {
-    "NW": { "name": "Residential", "center": [-210, -210], "type": "suburb" },
-    "NC": { "name": "Downtown", "center": [0, -210], "type": "commercial_high" },
-    "NE": { "name": "Port", "center": [210, -210], "type": "industrial_harbor" },
-    "CW": { "name": "Industrial", "center": [-210, 0], "type": "manufacturing" },
-    "CC": { "name": "Park", "center": [0, 0], "type": "public_green" },
-    "CE": { "name": "Commercial", "center": [210, 0], "type": "retail_gas" },
-    "SW": { "name": "BedroomDistrict", "center": [-210, 210], "type": "apartments" },
-    "SC": { "name": "Warehouses", "center": [0, 210], "type": "logistics" },
-    "SE": { "name": "Bridge", "center": [210, 210], "type": "infrastructure" }
+    "NW": {
+      "name": "Residential",
+      "center": [
+        -800,
+        -800
+      ],
+      "type": "suburb"
+    },
+    "NC": {
+      "name": "Downtown",
+      "center": [
+        0,
+        -800
+      ],
+      "type": "commercial_high"
+    },
+    "NE": {
+      "name": "Port",
+      "center": [
+        800,
+        -800
+      ],
+      "type": "industrial_harbor"
+    },
+    "CW": {
+      "name": "Industrial",
+      "center": [
+        -800,
+        0
+      ],
+      "type": "manufacturing"
+    },
+    "CC": {
+      "name": "Park",
+      "center": [
+        0,
+        0
+      ],
+      "type": "public_green"
+    },
+    "CE": {
+      "name": "Commercial",
+      "center": [
+        800,
+        0
+      ],
+      "type": "retail_gas"
+    },
+    "SW": {
+      "name": "BedroomDistrict",
+      "center": [
+        -800,
+        800
+      ],
+      "type": "apartments"
+    },
+    "SC": {
+      "name": "Warehouses",
+      "center": [
+        0,
+        800
+      ],
+      "type": "logistics"
+    },
+    "SE": {
+      "name": "Bridge",
+      "center": [
+        800,
+        800
+      ],
+      "type": "infrastructure"
+    }
   },
   "districts": [
     {
@@ -65,6 +141,13 @@
       "file": "city/districts/06_bedroom_warehouses.luau",
       "enabled": true,
       "priority": 6
+    },
+    {
+      "id": "07_mega_city_expansion",
+      "name": "Полный мегаполис: 9 зон, интерьеры и инфраструктура",
+      "file": "city/districts/07_mega_city_expansion.luau",
+      "enabled": true,
+      "priority": 7
     }
   ]
 }

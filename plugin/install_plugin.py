@@ -7,7 +7,11 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 LUA_PATH = os.path.join(DIR, "GitHubCitySync.lua")
-TARGET_DIR = r"C:\Users\user\AppData\Local\Roblox\Plugins"
+TARGET_DIR = os.path.join(
+    os.environ.get("LOCALAPPDATA", os.path.expanduser("~")),
+    "Roblox",
+    "Plugins",
+)
 
 with open(LUA_PATH, "r", encoding="utf-8") as f:
     lua_code = f.read()
