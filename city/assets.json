@@ -1,0 +1,48 @@
+{
+  "description": "Каталог моделей и мешей для интеграции в город через InsertService или Toolbox",
+  "recommended_categories": {
+    "vehicles": [
+      {
+        "name": "SedanCar",
+        "description": "Гражданский легковой седан для парковок",
+        "assetId": 0,
+        "notes": "Если assetId = 0, плагин генерирует процедурный Low-Poly авто"
+      },
+      {
+        "name": "PoliceCar",
+        "description": "Патрульная машина у участка полиции",
+        "assetId": 0
+      }
+    ],
+    "nature": [
+      {
+        "name": "OakTree",
+        "description": "Ветвистый дуб для парка",
+        "assetId": 0
+      },
+      {
+        "name": "PineTree",
+        "description": "Хвойное дерево для окраин острова",
+        "assetId": 0
+      }
+    ],
+    "urban_props": [
+      {
+        "name": "Hydrant",
+        "description": "Пожарный гидрант на тротуаре",
+        "assetId": 0
+      },
+      {
+        "name": "TrashCan",
+        "description": "Уличная урна",
+        "assetId": 0
+      },
+      {
+        "name": "TrafficLight",
+        "description": "Светофор на перекрестках",
+        "assetId": 0
+      }
+    ]
+  },
+  "usage_in_luau": "local asset = game:GetService('InsertService'):LoadAsset(assetId); asset.Parent = parentFolder"
+}

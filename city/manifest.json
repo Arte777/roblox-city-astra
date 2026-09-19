@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Arte777/roblox-city-astra/main/city/schema.json",
+  "project": "Astra City Island",
+  "version": "1.0.0",
+  "grid": {
+    "islandSize": [640, 28, 640],
+    "blockSize": [180, 180],
+    "roadWidth": 24,
+    "sidewalkWidth": 8,
+    "roadsX": [-100, 100],
+    "roadsZ": [-100, 100],
+    "groundHeight": 0,
+    "oceanHeight": -34.5
+  },
+  "zones": {
+    "NW": { "name": "Residential", "center": [-210, -210], "type": "suburb" },
+    "NC": { "name": "Downtown", "center": [0, -210], "type": "commercial_high" },
+    "NE": { "name": "Port", "center": [210, -210], "type": "industrial_harbor" },
+    "CW": { "name": "Industrial", "center": [-210, 0], "type": "manufacturing" },
+    "CC": { "name": "Park", "center": [0, 0], "type": "public_green" },
+    "CE": { "name": "Commercial", "center": [210, 0], "type": "retail_gas" },
+    "SW": { "name": "BedroomDistrict", "center": [-210, 210], "type": "apartments" },
+    "SC": { "name": "Warehouses", "center": [0, 210], "type": "logistics" },
+    "SE": { "name": "Bridge", "center": [210, 210], "type": "infrastructure" }
+  },
+  "districts": [
+    {
+      "id": "01_foundation",
+      "name": "Основание острова и Дорожная сетка",
+      "file": "city/districts/01_foundation.luau",
+      "enabled": true,
+      "priority": 1
+    },
+    {
+      "id": "02_downtown",
+      "name": "Деловой центр: Банк и Небоскрёб",
+      "file": "city/districts/02_downtown.luau",
+      "enabled": true,
+      "priority": 2
+    },
+    {
+      "id": "03_commercial",
+      "name": "Торговый район: Заправка, Маркет, Кофейня",
+      "file": "city/districts/03_commercial.luau",
+      "enabled": true,
+      "priority": 3
+    },
+    {
+      "id": "04_residential_park",
+      "name": "Жилой сектор и Центральный парк",
+      "file": "city/districts/04_residential_park.luau",
+      "enabled": true,
+      "priority": 4
+    },
+    {
+      "id": "05_port_industrial",
+      "name": "Морской порт и Промзона",
+      "file": "city/districts/05_port_industrial.luau",
+      "enabled": true,
+      "priority": 5
+    },
+    {
+      "id": "06_bedroom_warehouses",
+      "name": "Спальный район, Склады и Подвесной мост",
+      "file": "city/districts/06_bedroom_warehouses.luau",
+      "enabled": true,
+      "priority": 6
+    }
+  ]
+}
