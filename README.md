@@ -58,7 +58,13 @@
 Файл плагина уже скомпилирован в:
 `plugin/AstraCitySync.rbxmx`
 
-Плагин автоматически копируется в:
+Из корня репозитория запустите (требуется Python 3):
+
+```sh
+python plugin/install_plugin.py
+```
+
+Скрипт собирает плагин из актуального исходного кода и копирует его в:
 `%localappdata%\Roblox\Plugins\AstraCitySync.rbxmx`
 
 Если Studio уже открыта:
