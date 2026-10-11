@@ -54,6 +54,7 @@ repoBox.Size = UDim2.new(1, 0, 0, 32)
 repoBox.BackgroundColor3 = Color3.fromRGB(38, 42, 50)
 repoBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 repoBox.Text = "Arte777/roblox-city-astra"
+repoBox.ClearTextOnFocus = false
 repoBox.PlaceholderText = "owner/repo (напр. Arte777/roblox-city-astra)"
 repoBox.Font = Enum.Font.Gotham
 repoBox.TextSize = 13
@@ -66,6 +67,7 @@ branchBox.Size = UDim2.new(1, 0, 0, 30)
 branchBox.BackgroundColor3 = Color3.fromRGB(38, 42, 50)
 branchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 branchBox.Text = "main"
+branchBox.ClearTextOnFocus = false
 branchBox.PlaceholderText = "branch (напр. main)"
 branchBox.Font = Enum.Font.Gotham
 branchBox.TextSize = 13
@@ -78,6 +80,7 @@ tokenBox.Size = UDim2.new(1, 0, 0, 30)
 tokenBox.BackgroundColor3 = Color3.fromRGB(38, 42, 50)
 tokenBox.TextColor3 = Color3.fromRGB(200, 200, 200)
 tokenBox.Text = ""
+tokenBox.ClearTextOnFocus = false
 tokenBox.PlaceholderText = "GitHub Token (опционально для приватных репо)"
 tokenBox.Font = Enum.Font.Gotham
 tokenBox.TextSize = 12
@@ -168,9 +171,23 @@ local function fetchGitHub(path)
     return res.Body
 end
 
+local syncing = false
+
+local function setSyncing(value)
+    syncing = value
+    syncBtn.Active = not value
+    clearBtn.Active = not value
+    syncBtn.AutoButtonColor = not value
+    clearBtn.AutoButtonColor = not value
+    repoBox.TextEditable = not value
+    branchBox.TextEditable = not value
+    tokenBox.TextEditable = not value
+end
+
 local function syncCity()
+    if syncing then return end
+    setSyncing(true)
     syncBtn.Text = "⏳ Загрузка манифеста..."
-    syncBtn.Active = false
     appendLog("--- Начало синхронизации ---")
 
     local ok, err = pcall(function()
@@ -192,6 +209,7 @@ local function syncCity()
         end
 
         -- 3. Загружаем и выполняем каждый район
+        local built, failed = 0, 0
         for _, dist in ipairs(manifest.districts) do
             if dist.enabled then
                 appendLog("Строим район: " .. dist.name .. " (" .. dist.file .. ")")
@@ -199,17 +217,21 @@ local function syncCity()
 
                 local chunk, compileErr = loadstring(luauCode)
                 if not chunk then
+                    failed = failed + 1
                     appendLog("❌ Ошибка компиляции " .. dist.file .. ": " .. tostring(compileErr))
                 else
                     local runOk, runErr = pcall(function()
                         local res = chunk()
-                        if type(res) == "function" then
-                            res(cityFolder)
+                        if type(res) ~= "function" then
+                            error("Генератор должен возвращать функцию")
                         end
+                        res(cityFolder)
                     end)
                     if not runOk then
+                        failed = failed + 1
                         appendLog("❌ Ошибка выполнения " .. dist.file .. ": " .. tostring(runErr))
                     else
+                        built = built + 1
                         appendLog("✅ Успешно: " .. dist.name)
                     end
                 end
@@ -224,7 +246,13 @@ local function syncCity()
 
         Selection:Set({cityFolder})
         ChangeHistoryService:SetWaypoint("After Astra City Sync")
-        appendLog("🎉 Город полностью синхронизирован и построен!")
+        if failed > 0 then
+            appendLog("⚠️ Успешно: " .. built .. ", ошибок: " .. failed .. ". См. лог.")
+        elseif built == 0 then
+            appendLog("Нет включённых районов — см. манифест.")
+        else
+            appendLog("🎉 Город полностью синхронизирован и построен!")
+        end
     end)
 
     if not ok then
@@ -232,12 +260,13 @@ local function syncCity()
     end
 
     syncBtn.Text = "⚡ СИНХРОНИЗИРОВАТЬ ГОРОД"
-    syncBtn.Active = true
+    setSyncing(false)
 end
 
 syncBtn.MouseButton1Click:Connect(syncCity)
 
 clearBtn.MouseButton1Click:Connect(function()
+    if syncing then return end
     local city = workspace:FindFirstChild("CityMap")
     if city then
         ChangeHistoryService:SetWaypoint("Before Clear CityMap")
